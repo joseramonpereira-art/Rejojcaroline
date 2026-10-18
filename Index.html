@@ -1,0 +1,99 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mi reloj Rolex</title>
+<style>
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  min-height: 100dvh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #101010;
+  font-family: Arial, sans-serif;
+}
+.reloj {
+  width: 300px;
+  height: 300px;
+  border: 12px solid #d5ae55;
+  border-radius: 50%;
+  background: radial-gradient(circle, #174b39, #061b15);
+  position: relative;
+  box-shadow: 0 0 0 5px #806122,
+              0 10px 35px #000;
+  color: #e9ce83;
+}
+.marca {
+  position: absolute;
+  top: 53px;
+  width: 100%;
+  text-align: center;
+  font-size: 23px;
+  letter-spacing: 3px;
+  font-weight: bold;
+}
+.numero {
+  position: absolute;
+  font-size: 23px;
+  font-weight: bold;
+}
+.n12 { top: 12px; left: 50%; transform: translateX(-50%); }
+.n3 { right: 15px; top: 50%; transform: translateY(-50%); }
+.n6 { bottom: 12px; left: 50%; transform: translateX(-50%); }
+.n9 { left: 15px; top: 50%; transform: translateY(-50%); }
+.aguja {
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  transform-origin: bottom center;
+  border-radius: 5px;
+}
+.hora { width: 7px; height: 67px; background: #e9ce83; margin-left: -3.5px; }
+.minuto { width: 5px; height: 95px; background: #fff0bd; margin-left: -2.5px; }
+.segundo { width: 2px; height: 110px; background: #e33; margin-left: -1px; }
+.centro {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #e9ce83;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+</style>
+</head>
+<body>
+<div class="reloj">
+  <div class="marca">ROLEX</div>
+  <div class="numero n12">12</div>
+  <div class="numero n3">3</div>
+  <div class="numero n6">6</div>
+  <div class="numero n9">9</div>
+  <div id="hora" class="aguja hora"></div>
+  <div id="minuto" class="aguja minuto"></div>
+  <div id="segundo" class="aguja segundo"></div>
+  <div class="centro"></div>
+</div>
+<script>
+function actualizar() {
+  const ahora = new Date();
+  const s = ahora.getSeconds() + ahora.getMilliseconds()/1000;
+  const m = ahora.getMinutes() + s/60;
+  const h = (ahora.getHours()%12) + m/60;
+  document.getElementById("hora").style.transform =
+    `rotate(${h*30}deg)`;
+  document.getElementById("minuto").style.transform =
+    `rotate(${m*6}deg)`;
+  document.getElementById("segundo").style.transform =
+    `rotate(${s*6}deg)`;
+}
+actualizar();
+setInterval(actualizar, 50);
+</script>
+</body>
+</html>
